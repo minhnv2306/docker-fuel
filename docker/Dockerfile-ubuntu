@@ -1,0 +1,4 @@
+FROM euclid1990/ubuntu-server
+
+# Author
+MAINTAINER nguyenvanminh

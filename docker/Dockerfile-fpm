@@ -1,0 +1,25 @@
+FROM php:7.2-fpm
+
+# Author
+MAINTAINER nguyenvanminh
+
+RUN docker-php-ext-install pdo_mysql && docker-php-ext-install mysqli
+
+# Install composer
+RUN curl -s http://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
+
+# Install npm
+RUN apt-get update
+RUN apt-get install -y gnupg gnupg1 gnupg2
+RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt-get install -y npm
+
+# Install package
+RUN apt-get update && apt-get install -y zip unzip git && apt-get install -y libpng-dev
+RUN npm i -g npm
+
+# ENTRYPOINT cd blog && composer install && npm install && npm run dev && /bin/bash
+
+EXPOSE 9000
